@@ -15,21 +15,20 @@ include('funciones/db.php');
     <title>TRAIDEVS</title>
 </head>
 <body>
+    <?php
+        $buscar = $_POST['buscar'];
+    ?>
     <div class="navbar">
         <div class="navbar-container">
             <div class="logo-container"><h1 class="logo">TRAIDEVS</h1></div>
             <div class="search-container">
-                <form action="index_buscar.php" method="POST">
-                    <input type="text" name="buscar" placeholder="Buscar Trailer" class="search">
-                    <input type="submit" value="Buscar">
-                </form>
+
             </div>
         </div>
     </div>
     <div class="sidebar">
         <a href="index.php"><i class="left-menu-icon fa-solid fa-house-chimney"></i></a>
-        <a href="funciones/cerrar.php" alt="cerrar sesion"><i class="left-menu-icon fa-solid fa-rectangle-xmark"></i></a>
-
+        <a href="http://localhost/TraiDevs_final/login.php"><i class="left-menu-icon fa-solid fa-user"></i></a>
     </div>
 
     <div class="container">
@@ -37,8 +36,9 @@ include('funciones/db.php');
     <div class="movie-list-container">
 
     <?php 
-    $sql="SELECT * FROM trailer ORDER BY codigo DESC";
-    $result = mysqli_query($conexion, $sql);  
+        
+        $sql="SELECT * FROM trailer WHERE titulo LIKE '$buscar' '%' ORDER BY codigo DESC";
+        $result = mysqli_query($conexion, $sql);  
 
     while($mostrar = mysqli_fetch_array($result)){
 

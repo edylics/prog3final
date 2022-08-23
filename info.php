@@ -12,60 +12,62 @@ include('funciones/db.php');
         href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&family=Sen:wght@400;700;800&display=swap" 
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <title>TRAIDEVS</title>
+    <title>Trailer</title>
 </head>
 <body>
     <div class="navbar">
         <div class="navbar-container">
             <div class="logo-container"><h1 class="logo">TRAIDEVS</h1></div>
-            <div class="search-container">
-                <form action="index_buscar.php" method="POST">
-                    <input type="text" name="buscar" placeholder="Buscar Trailer" class="search">
-                    <input type="submit" value="Buscar">
-                </form>
-            </div>
         </div>
     </div>
     <div class="sidebar">
         <a href="index.php"><i class="left-menu-icon fa-solid fa-house-chimney"></i></a>
         <a href="funciones/cerrar.php" alt="cerrar sesion"><i class="left-menu-icon fa-solid fa-rectangle-xmark"></i></a>
-
     </div>
 
     <div class="container">
     <div class="content-container">
-    <div class="movie-list-container">
+        <div class="tabla">
 
-    <?php 
-    $sql="SELECT * FROM trailer ORDER BY codigo DESC";
+<?php 
+    $codigo_info= $_GET['codigo_info'];
+    $sql="SELECT * FROM trailer WHERE codigo = '$codigo_info'";
     $result = mysqli_query($conexion, $sql);  
 
     while($mostrar = mysqli_fetch_array($result)){
 
             
 ?>
-        
-           <div class="movie-list-wrapper">
-               <div class="movie-list">
-                   <div class="movie-list-item">
-                        <input type="hidden" value="<?php echo $mostrar['codigo']?>" name="txt-codigo"readonly>
-                        <span class="movie-list-item-title"><?php echo $mostrar['titulo']?></span>
-                        <img src="<?php echo substr($mostrar['img'], 3) ?>" class="movie-list-item-img">
-                        <a href="info.php?codigo_info=<?php echo $mostrar['codigo']?>" class="movie-list-item-button">Ver</a>
-                    </div>
-               </div>
-           </div>
+    <div class="seleccionada">
+        <div class="imagen">
+            <img src="<?php echo substr($mostrar['img'], 3) ?>" class="movie-list-item-img">
+        </div>
+        <div class="texto">
+            <h2><?php echo $mostrar['titulo']?></h2><br>
+            <p> <h3>Reseña: </h3><br><?php echo $mostrar['reseña']?></p><br>
+            <p> <h3>Actores: </h3><br><?php echo $mostrar['actores']?></p><br>
+            <p> <h3>Año: </h3> <br><?php echo $mostrar['año']?></p>
+        </div>
+        <div class="video">
+            <iframe width="500" height="300" src="<?php echo $mostrar['enlace']?>" target="_blank" 
+            title="YouTube video player" frameborder="0" allow="accelerometer; 
+            autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen></iframe>
+        </div>
+
+
+    </div>
+
+                
+                
 
 <?php 
     }
 ?>
+                
 
-      
-              
-          
-         
-         </div>
+        </div>
     </div>
-</div>
+    </div> 
 </body>
 </html>

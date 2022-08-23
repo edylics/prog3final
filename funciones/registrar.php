@@ -11,13 +11,13 @@
         $usuario=$_POST['txt-usuario'];
         $clave=$_POST['txt-clave'];
     
-        $consulta="INSERT INTO `usuarios` (`nombre`, `usuario`, `clave`) VALUES ('$nombre', '$usuario', '$clave');";
+        $consulta="INSERT INTO `usuario` (`nombre`, `usuario`, `clave`) VALUES ('$nombre', '$usuario', '$clave');";
     
         $resultado=mysqli_query($conexion, $consulta) or die("ERROR AL Registrar");
 
     
         mysqli_close($conexion);
-        header("location:../index.php");
+        header("location:../login.php");
 
 
     }
